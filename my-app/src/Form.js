@@ -1,7 +1,7 @@
 import React from 'react';
-import './main.scss';
+import './form.scss';
 
-class Main extends React.Component {
+class Form extends React.Component {
   
     constructor(props) {
       super(props);
@@ -18,11 +18,17 @@ class Main extends React.Component {
         const newState = {url : url , method : method};
         this.setstate(newState);
     }
-  handelurl = e=>{
-    e.preventDefault();
+    handleSubmit = async e => {
+      e.preventDefault();
+      let raw = await fetch(e.target.url.value);
+      let data = await raw.json();
+      console.log('this is data from api', data);
+      const header = raw.headers;
+      console.log('this is data from api', header);
 
-      this.setState({url : e.target.value})
+      this.props.handler(data, header);
   }
+
   changeMethod = (e) => {
     e.preventDefault();
     this.setState({ method: e.target.value });
@@ -32,24 +38,20 @@ class Main extends React.Component {
     render() {
       return (
           <div>
-            <form>
+            <form onSubmit={this.handleSubmit}>
           <label>URL :</label>
           <input onChange={this.handelurl}type="text" name="url" placeholder="http://reem.url.com"/>
-          <button type="button" onClick={this.addUrl}>GO!</button> <br></br>
+          <button >GO!</button> <br></br>
             <button value={`GET`} onClick={this.changeMethod}>GET</button>
             <button value={`POST`}onClick={this.changeMethod}> POST</button>
             <button value={`PUT`} onClick={this.changeMethod}>PUT</button>
             <button value={`DELETE`}onClick={this.changeMethod}> DELETE</button>
         </form>
-             <section>
-            <p id ="mainp"> {this.state.method} &nbsp;
-            
-            {this.state.url} </p>
-            </section>
+           
             
           </div>
       )
     }
   }
-  
-  export default Main;
+
+export default Form;
