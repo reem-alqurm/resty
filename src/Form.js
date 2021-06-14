@@ -23,10 +23,9 @@ class Form extends React.Component {
       let raw = await fetch(e.target.url.value);
       let data = await raw.json();
       console.log('this is data from api', data);
-      const header = raw.headers;
-      console.log('this is data from api', header);
+    
 
-      this.props.handler(data, header);
+      this.props.handler(data);
   }
 
   changeMethod = (e) => {

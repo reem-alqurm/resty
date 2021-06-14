@@ -8,17 +8,15 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          data : [],
-          headers: {},
-            count: 0
+          data : {}
+         
         };
     }
 
     handleForm = (data, headers) => {
         this.setState({
-          data: data.results,
-           count:data.count,
-           headers:headers
+          data: data,
+          
           });
     }
 
