@@ -20,7 +20,9 @@ class Form extends React.Component {
     }
     handleSubmit = async e => {
       e.preventDefault();
-      let raw = await fetch(e.target.url.value);
+      let raw = await fetch(e.target.url.value,{
+        mode :'cors'
+      });
       let data = await raw.json();
       console.log('this is data from api', data);
       const header = raw.headers;
