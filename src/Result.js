@@ -9,7 +9,10 @@ class Result extends React.Component {
       <>
         <div id="mainp">
           {/* <JSONPretty id="json-pretty" src={this.props} /> */}
+          {/* <ReactJson id="json-pretty" src={this.props.results.headers} /> */}
+          
           <ReactJson id="json-pretty" src={this.props} />
+
 
         </div>
 

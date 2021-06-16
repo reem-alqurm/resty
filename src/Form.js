@@ -11,46 +11,63 @@ class Form extends React.Component {
       };
     }
   
-    addurl = e => {
-        e.preventDefault();
-        const url = e.target.url.value;
-        const method = e.target.method.value;
-        const newState = {url : url , method : method};
-        this.setstate(newState);
-    }
+    // addurl = e => {
+    //     e.preventDefault();
+    //     const url = e.target.url.value;
+    //     const method = e.target.method.value;
+    //     const newState = {url : url , method : method};
+    //     this.setstate(newState);
+    // }
     handleSubmit = async e => {
       e.preventDefault();
-      let raw = await fetch(e.target.url.value);
-      let data = await raw.json();
-      console.log('this is data from api', data);
-    
 
-      this.props.handler(data);
+      await this.setState({
+        urls: e.target.url.value, 
+        methods: e.target.method.value
+      });
+  
+      this.props.updateResults({...this.state});
+      // this.props.updateResults(data, headers, e.target);
+
+      // this.props.handler(data);
   }
 
-  changeMethod = (e) => {
-    e.preventDefault();
-    this.setState({ method: e.target.value });
-  };
+  // changeMethod = (e) => {
+  //   e.preventDefault();
+  //   this.setState({ method: e.target.value });
+  // };
 
-   
-    render() {
-      return (
-          <div>
-            <form onSubmit={this.handleSubmit}>
-          <label>URL :</label>
-          <input onChange={this.handelurl}type="text" name="url" placeholder="http://reem.url.com"/>
-          <button >GO!</button> <br></br>
-            <button value={`GET`} onClick={this.changeMethod}>GET</button>
-            <button value={`POST`}onClick={this.changeMethod}> POST</button>
-            <button value={`PUT`} onClick={this.changeMethod}>PUT</button>
-            <button value={`DELETE`}onClick={this.changeMethod}> DELETE</button>
-        </form>
-           
-            
+  render() {
+    return (
+      <section className="App-form">
+        <form onSubmit={this.handleSubmit}>
+          <label>URL:</label>
+          <input id="input-text" name="url" type='text' />
+          <button type="submit">GO!</button>
+          <div id="rest-buttons">
+            <div className="method-buttons">
+              <label>
+                <input name="method" type="radio" value="GET" />
+                GET
+              </label>
+              <label>
+                <input name="method" type="radio" value="POST" />
+               POST
+              </label>
+              <label>
+                <input name="method" type="radio" value="PUT" />
+                PUT
+              </label>
+              <label>
+                <input  name="method" type="radio" value="DELETE" />
+               DELETE
+              </label>
+            </div>
           </div>
-      )
-    }
+        </form>
+      </section>
+    )
   }
+}
 
 export default Form;
